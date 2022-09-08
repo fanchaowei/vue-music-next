@@ -1,4 +1,5 @@
 const path = require('path')
+const registerRouter = require('./backend/router')
 
 // 设置别名
 function resolve(dir) {
@@ -20,5 +21,10 @@ module.exports = {
   chainWebpack: (config) => {
     // 配置别名
     config.resolve.alias.set('@', resolve('src'))
+  },
+  devServer: {
+    before(app) {
+      registerRouter(app)
+    },
   },
 }
