@@ -15,7 +15,7 @@ export function get(url, params) {
     .then((res) => {
       const serviceData = res.data
       if (serviceData.code === ERR_OK) {
-        return serviceData
+        return serviceData.result
       }
     })
     .catch((e) => {
