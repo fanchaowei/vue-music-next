@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { addClass, removeClass } from '../../../assets/js/dom'
 import loading from './loading.vue'
 
+// 需要添加的 class 名称
 const relativeCls = 'g-relative'
 
 const loadingDirective = {
