@@ -2,8 +2,10 @@
 import { defineComponent, ref, defineProps } from 'vue'
 
 import useScroll from './use-scroll'
+
+// 使用滚动组件
 export default defineComponent({
-  name: '',
+  name: 'scroll',
 })
 </script>
 
