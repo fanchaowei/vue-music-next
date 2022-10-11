@@ -2,6 +2,7 @@
 import { defineComponent, defineProps } from 'vue'
 
 import Scroll from '../scroll/scroll.vue'
+import useFixed from './use-fixed'
 export default defineComponent({
   name: 'IndexList',
 })
@@ -17,12 +18,13 @@ const props = defineProps({
     },
   },
 })
-console.log('data', props.data)
+
+const { groupRef, onScroll } = useFixed(props.data)
 </script>
 
 <template>
-  <Scroll class="index-list">
-    <ul>
+  <Scroll class="index-list" :probe-type="3" @scroll="onScroll">
+    <ul ref="groupRef">
       <li v-for="group in data" :key="group.title" class="group">
         <h2 class="title">{{ group.title }}</h2>
         <ul>
@@ -33,6 +35,11 @@ console.log('data', props.data)
         </ul>
       </li>
     </ul>
+    <div class="fixed">
+      <div class="fixed-title">
+        {{ fixedTitle }}
+      </div>
+    </div>
   </Scroll>
 </template>
 
