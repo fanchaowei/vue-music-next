@@ -13,9 +13,7 @@ import Tab from '@/components/tab/tab'
 <template>
   <m-header></m-header>
   <Tab></Tab>
-  <Suspense>
-    <router-view></router-view>
-  </Suspense>
+  <router-view></router-view>
 </template>
 
 <style lang="scss"></style>

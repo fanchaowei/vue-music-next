@@ -18,8 +18,7 @@ const props = defineProps({
     },
   },
 })
-
-const { groupRef, onScroll } = useFixed(props.data)
+const { groupRef, onScroll, fixedTitle, fixedStyle } = useFixed(props)
 </script>
 
 <template>
@@ -35,7 +34,7 @@ const { groupRef, onScroll } = useFixed(props.data)
         </ul>
       </li>
     </ul>
-    <div class="fixed">
+    <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
       <div class="fixed-title">
         {{ fixedTitle }}
       </div>
