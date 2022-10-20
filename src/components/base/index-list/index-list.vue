@@ -3,6 +3,7 @@ import { defineComponent, defineProps } from 'vue'
 
 import Scroll from '../scroll/scroll.vue'
 import useFixed from './use-fixed'
+import useShortcut from './use-shortcut'
 export default defineComponent({
   name: 'IndexList',
 })
@@ -18,7 +19,8 @@ const props = defineProps({
     },
   },
 })
-const { groupRef, onScroll, fixedTitle, fixedStyle } = useFixed(props)
+const { groupRef, onScroll, fixedTitle, fixedStyle, currentIndex } = useFixed(props)
+const { shortcutList } = useShortcut(props)
 </script>
 
 <template>
@@ -38,6 +40,18 @@ const { groupRef, onScroll, fixedTitle, fixedStyle } = useFixed(props)
       <div class="fixed-title">
         {{ fixedTitle }}
       </div>
+    </div>
+    <div class="shortcut">
+      <ul>
+        <li
+          v-for="(item, index) in shortcutList"
+          :key="item"
+          class="item"
+          :class="{ current: currentIndex === index }"
+        >
+          {{ item }}
+        </li>
+      </ul>
     </div>
   </Scroll>
 </template>
