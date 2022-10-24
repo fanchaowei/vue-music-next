@@ -20,11 +20,11 @@ const props = defineProps({
   },
 })
 const { groupRef, onScroll, fixedTitle, fixedStyle, currentIndex } = useFixed(props)
-const { shortcutList } = useShortcut(props)
+const { shortcutList, onShortcutTouchStart, scrollRef } = useShortcut(props, groupRef)
 </script>
 
 <template>
-  <Scroll class="index-list" :probe-type="3" @scroll="onScroll">
+  <Scroll class="index-list" :probe-type="3" @scroll="onScroll" ref="scrollRef">
     <ul ref="groupRef">
       <li v-for="group in data" :key="group.title" class="group">
         <h2 class="title">{{ group.title }}</h2>
@@ -41,11 +41,12 @@ const { shortcutList } = useShortcut(props)
         {{ fixedTitle }}
       </div>
     </div>
-    <div class="shortcut">
+    <div class="shortcut" @touchstart.stop.prevent="onShortcutTouchStart">
       <ul>
         <li
           v-for="(item, index) in shortcutList"
           :key="item"
+          :data-index="index"
           class="item"
           :class="{ current: currentIndex === index }"
         >

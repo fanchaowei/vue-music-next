@@ -46,7 +46,7 @@ export default function useFixed(props) {
     for (let i = 0; i < listHeightsVal.length - 1; i++) {
       const topHeight = listHeightsVal[i]
       const bottomHeight = listHeightsVal[i + 1]
-      if (topHeight < newY && newY <= bottomHeight) {
+      if (topHeight <= newY && newY < bottomHeight) {
         currentIndex.value = i
         distance.value = bottomHeight - newY
       }
