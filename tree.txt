@@ -1,0 +1,54 @@
+.
+├── README.md
+├── babel.config.js
+├── backend
+│   ├── prod.server.js
+│   ├── router.js
+│   └── sign.js
+├── package.json
+├── public
+│   ├── favicon.ico
+│   └── index.html
+├── src
+│   ├── App.vue
+│   ├── assets
+│   │   ├── fonts
+│   │   │   ├── music-icon.eot
+│   │   │   ├── music-icon.svg
+│   │   │   ├── music-icon.ttf
+│   │   │   └── music-icon.woff
+│   │   └── scss
+│   │       ├── base.scss
+│   │       ├── icon.scss
+│   │       ├── index.scss
+│   │       ├── mixin.scss
+│   │       ├── reset.scss
+│   │       └── variable.scss
+│   ├── components
+│   │   ├── base
+│   │   │   └── slider
+│   │   │       └── slider.vue
+│   │   ├── header
+│   │   │   ├── header.vue
+│   │   │   ├── logo@2x.png
+│   │   │   └── logo@3x.png
+│   │   └── tab
+│   │       └── tab.vue
+│   ├── main.js
+│   ├── router
+│   │   └── index.js
+│   ├── service
+│   │   ├── base.js
+│   │   └── recommend.js
+│   ├── store
+│   │   └── index.js
+│   └── views
+│       ├── recommend.vue
+│       ├── search.vue
+│       ├── singer.vue
+│       └── top-list.vue
+├── tree.txt
+├── vue.config.js
+└── yarn.lock
+
+15 directories, 36 files
