@@ -44,6 +44,10 @@ export default function useShortcut(props, groupRef) {
 
   // 滚动到索引位置
   const scrollTo = (anchorIndex) => {
+    // 排除 anchorIndex 不是数字引发的错误
+    if (isNaN(anchorIndex)) {
+      return
+    }
     // 限制 anchorIndex 的大小
     anchorIndex = Math.max(0, Math.min(shortcutList.value.length - 1, anchorIndex))
     // 获取对应的字母的列表 element 对象
