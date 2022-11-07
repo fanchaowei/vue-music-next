@@ -1,8 +1,9 @@
 <script>
-import { defineComponent, toRefs, onMounted } from 'vue'
+import { defineComponent, toRefs, onMounted, ref, computed } from 'vue'
 
 import { getSingerDetail } from '@/service/singer.js'
 import { processSongs } from '@/service/song.js'
+import MusicList from '@/components/music-list/music-list.vue'
 export default defineComponent({
   name: 'singer-detail',
 })
@@ -14,17 +15,30 @@ const props = defineProps({
 })
 const { singer } = toRefs(props)
 
+// 歌曲数据
+const songs = ref([])
+// 图片
+const pic = computed(() => {
+  return singer.value && singer.value.pic
+})
+// 歌手名称
+const title = computed(() => {
+  return singer.value && singer.value.name
+})
+
 onMounted(async () => {
   // 获取歌手的歌单
   const result = await getSingerDetail(singer.value)
   // 获取歌曲的播放 url
-  const songs = await processSongs(result.songs)
+  songs.value = await processSongs(result.songs)
   console.log('result', result, songs)
 })
 </script>
 
 <template>
-  <div class="singer-detail">111</div>
+  <div class="singer-detail">
+    <MusicList :songs="songs" :title="title" :pic="pic"></MusicList>
+  </div>
 </template>
 
 <style scoped lang="scss">
