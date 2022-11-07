@@ -1,5 +1,6 @@
 <script>
 import { defineComponent, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { getSingerList } from '../service/singer'
 import IndexList from '../components/base/index-list/index-list.vue'
@@ -9,8 +10,18 @@ export default defineComponent({
 </script>
 
 <script setup>
+const router = useRouter()
+
 // 歌手信息
 const singers = ref([])
+// 点击选中的歌手
+const selectedSinger = ref(null)
+// 获取点击选中的歌手，并跳转页面
+const selectSinger = (singer) => {
+  console.log('selectSinger')
+  selectedSinger.value = singer
+  router.push({ path: `/singer/${singer.mid}` })
+}
 
 //#region 生命周期
 
@@ -24,7 +35,8 @@ onMounted(async () => {
 
 <template>
   <div class="singer" v-loading="!singers.length">
-    <IndexList :data="singers"></IndexList>
+    <IndexList :data="singers" @select="selectSinger"></IndexList>
+    <router-view :singer="selectedSinger"></router-view>
   </div>
 </template>
 

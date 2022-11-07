@@ -1,4 +1,5 @@
 <script>
+import { click } from '@better-scroll/shared-utils'
 import { defineComponent, defineProps } from 'vue'
 
 import Scroll from '../scroll/scroll.vue'
@@ -19,20 +20,29 @@ const props = defineProps({
     },
   },
 })
+const emits = defineEmits(['select'])
+// 当前滚动的位置
 const { groupRef, onScroll, fixedTitle, fixedStyle, currentIndex } = useFixed(props)
+//  右侧导航栏
 const { shortcutList, onShortcutTouchStart, scrollRef, onShortcutTouchMove } = useShortcut(
   props,
   groupRef
 )
+
+// 歌手选项卡点击事件
+const onItemClick = (item) => {
+  console.log('onItemClick')
+  emits('select', item)
+}
 </script>
 
 <template>
-  <Scroll class="index-list" :probe-type="3" @scroll="onScroll" ref="scrollRef">
+  <Scroll class="index-list" :click="true" :probe-type="3" @scroll="onScroll" ref="scrollRef">
     <ul ref="groupRef">
       <li v-for="group in data" :key="group.title" class="group">
         <h2 class="title">{{ group.title }}</h2>
         <ul>
-          <li v-for="item in group.list" :key="item.id" class="item">
+          <li v-for="item in group.list" :key="item.id" class="item" @click="onItemClick(item)">
             <img class="avatar" v-lazy="item.pic" />
             <span class="name">{{ item.name }}</span>
           </li>

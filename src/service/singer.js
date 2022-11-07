@@ -1,6 +1,13 @@
 import { get } from './base'
 
-// 获取歌手信息
+// 获取歌手信息列表
 export function getSingerList() {
   return get('/api/getSingerList')
+}
+
+// 获取歌手详情
+export function getSingerDetail(singer) {
+  return get('/api/getSingerDetail', {
+    mid: singer.mid,
+  })
 }
