@@ -15,6 +15,7 @@ const props = defineProps({
 })
 const { singer } = toRefs(props)
 
+const loading = ref(true)
 // 歌曲数据
 const songs = ref([])
 // 图片
@@ -31,13 +32,13 @@ onMounted(async () => {
   const result = await getSingerDetail(singer.value)
   // 获取歌曲的播放 url
   songs.value = await processSongs(result.songs)
-  console.log('result', result, songs)
+  loading.value = false
 })
 </script>
 
 <template>
   <div class="singer-detail">
-    <MusicList :songs="songs" :title="title" :pic="pic"></MusicList>
+    <MusicList :songs="songs" :title="title" :pic="pic" :loading="loading"></MusicList>
   </div>
 </template>
 

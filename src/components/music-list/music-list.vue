@@ -1,5 +1,6 @@
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, computed, onMounted, ref, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 import SongList from '@/components/base/song-list/song-list.vue'
 import Scroll from '@/components/base/scroll/scroll.vue'
 export default defineComponent({
@@ -8,6 +9,7 @@ export default defineComponent({
 </script>
 
 <script setup>
+const router = useRouter()
 const props = defineProps({
   songs: {
     type: Array,
@@ -17,19 +19,43 @@ const props = defineProps({
   },
   title: String,
   pic: String,
+  loading: Boolean,
+})
+const { songs, title, pic } = toRefs(props)
+
+const bgImageRef = ref(null)
+// 图片高度
+const imageHeight = ref(0)
+const bgImageStyle = computed(() => {
+  return {
+    backgroundImage: `url(${pic.value})`,
+  }
+})
+const scrollStyle = computed(() => {
+  return {
+    top: `${imageHeight.value}px`,
+  }
+})
+
+const goBack = () => {
+  router.back()
+}
+
+onMounted(() => {
+  imageHeight.value = bgImageRef.value.clientHeight
 })
 </script>
 
 <template>
   <div class="music-list">
-    <div class="back">
+    <div class="back" @click="goBack">
       <i class="icon-back"></i>
     </div>
     <h1 class="title">{{ title }}</h1>
-    <div class="bg-image">
+    <div class="bg-image" :style="bgImageStyle" ref="bgImageRef">
       <div class="filter"></div>
     </div>
-    <Scroll class="list">
+    <Scroll class="list" :style="scrollStyle" v-loading="loading">
       <div class="song-list-wrapper">
         <SongList :songs="songs"></SongList>
       </div>
@@ -72,6 +98,7 @@ const props = defineProps({
     width: 100%;
     transform-origin: top;
     background-size: cover;
+    padding-top: 70%;
     .play-btn-wrapper {
       position: absolute;
       bottom: 20px;
