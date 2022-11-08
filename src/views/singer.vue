@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router'
 
 import { getSingerList } from '../service/singer'
 import IndexList from '../components/base/index-list/index-list.vue'
+import storage from 'good-storage'
+import { SINGER_KEY } from '@/assets/js/constant.js'
 export default defineComponent({
   name: 'singer',
 })
@@ -20,7 +22,11 @@ const selectedSinger = ref(null)
 const selectSinger = (singer) => {
   console.log('selectSinger')
   selectedSinger.value = singer
+  cacheSinger(singer)
   router.push({ path: `/singer/${singer.mid}` })
+}
+const cacheSinger = (singer) => {
+  storage.session.set(SINGER_KEY, singer)
 }
 
 //#region 生命周期
