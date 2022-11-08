@@ -60,6 +60,18 @@ const scrollStyle = computed(() => {
     top: `${imageHeight.value}px`,
   }
 })
+const filterStyle = computed(() => {
+  // 实现向上滑动歌曲列表，歌手图片会模糊的功能
+  let blur = 0
+  const scrollYVal = scrollY.value
+  const imageHeightVal = imageHeight.value
+  if (scrollYVal >= 0) {
+    blur = Math.min(maxTranslateY.value / imageHeightVal, scrollY.value / imageHeightVal) * 20
+  }
+  return {
+    backdropFilter: `blur(${blur}px)`,
+  }
+})
 
 // 滚动组件当前的 y 轴值
 const scrollY = ref(0)
@@ -91,7 +103,7 @@ onMounted(() => {
     </div>
     <h1 class="title">{{ title }}</h1>
     <div class="bg-image" :style="bgImageStyle" ref="bgImageRef">
-      <div class="filter"></div>
+      <div class="filter" :style="filterStyle"></div>
     </div>
     <Scroll
       class="list"
