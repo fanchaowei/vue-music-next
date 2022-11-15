@@ -20,9 +20,19 @@ const props = defineProps({
   title: String,
   pic: String,
   loading: Boolean,
+  noResultText: {
+    type: String,
+    default: '抱歉，没有找到可播放的歌曲。',
+  },
 })
-const { songs, title, pic } = toRefs(props)
+const { songs, title, pic, loading } = toRefs(props)
 
+// 是否显示 noResult
+const noResult = computed(() => {
+  return !loading.value && !songs.value.length
+})
+
+// 歌手图片的 element 对象
 const bgImageRef = ref(null)
 // 图片高度
 const imageHeight = ref(0)
@@ -109,6 +119,7 @@ onMounted(() => {
       class="list"
       :style="scrollStyle"
       v-loading="loading"
+      v-no-result:[noResultText]="noResult"
       :probe-type="3"
       @scroll="onScroll"
     >
